@@ -1,0 +1,338 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "type": {
+      "id": "http://jsonschema.net/type",
+      "type": "string"
+    },
+    "properties": {
+      "id": "http://jsonschema.net/properties",
+      "type": "object",
+      "properties": {
+        "ResponseMetaData": {
+          "id": "http://jsonschema.net/properties/ResponseMetaData",
+          "type": "object",
+          "properties": {
+            "SearchRequest": {
+              "id": "http://jsonschema.net/properties/ResponseMetaData/SearchRequest",
+              "type": "object",
+              "properties": {
+                "request": {
+                  "id": "http://jsonschema.net/properties/ResponseMetaData/SearchRequest/request",
+                  "type": "string"
+                },
+                "results": {
+                  "id": "http://jsonschema.net/properties/ResponseMetaData/SearchRequest/results",
+                  "type": "integer"
+                },
+                "skip": {
+                  "id": "http://jsonschema.net/properties/ResponseMetaData/SearchRequest/skip",
+                  "type": "integer"
+                },
+                "boundedBy": {
+                  "id": "http://jsonschema.net/properties/ResponseMetaData/SearchRequest/boundedBy",
+                  "type": "array",
+                  "items": [
+                    {
+                      "id": "http://jsonschema.net/properties/ResponseMetaData/SearchRequest/boundedBy/0",
+                      "type": "array",
+                      "items": [
+                        {
+                          "id": "http://jsonschema.net/properties/ResponseMetaData/SearchRequest/boundedBy/0/0",
+                          "type": "number"
+                        },
+                        {
+                          "id": "http://jsonschema.net/properties/ResponseMetaData/SearchRequest/boundedBy/0/1",
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "http://jsonschema.net/properties/ResponseMetaData/SearchRequest/boundedBy/1",
+                      "type": "array",
+                      "items": [
+                        {
+                          "id": "http://jsonschema.net/properties/ResponseMetaData/SearchRequest/boundedBy/1/0",
+                          "type": "number"
+                        },
+                        {
+                          "id": "http://jsonschema.net/properties/ResponseMetaData/SearchRequest/boundedBy/1/1",
+                          "type": "number"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            "SearchResponse": {
+              "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse",
+              "type": "object",
+              "properties": {
+                "found": {
+                  "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/found",
+                  "type": "integer"
+                },
+                "Point": {
+                  "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/Point",
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/Point/type",
+                      "type": "string"
+                    },
+                    "coordinates": {
+                      "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/Point/coordinates",
+                      "type": "array",
+                      "items": [
+                        {
+                          "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/Point/coordinates/0",
+                          "type": "number"
+                        },
+                        {
+                          "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/Point/coordinates/1",
+                          "type": "number"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "boundedBy": {
+                  "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/boundedBy",
+                  "type": "array",
+                  "items": [
+                    {
+                      "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/boundedBy/0",
+                      "type": "array",
+                      "items": [
+                        {
+                          "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/boundedBy/0/0",
+                          "type": "number"
+                        },
+                        {
+                          "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/boundedBy/0/1",
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/boundedBy/1",
+                      "type": "array",
+                      "items": [
+                        {
+                          "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/boundedBy/1/0",
+                          "type": "number"
+                        },
+                        {
+                          "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/boundedBy/1/1",
+                          "type": "number"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "SourceMetaDataList": {
+                  "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/SourceMetaDataList",
+                  "type": "object",
+                  "properties": {
+                    "GeocoderResponseMetaData": {
+                      "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/SourceMetaDataList/GeocoderResponseMetaData",
+                      "type": "object",
+                      "properties": {
+                        "request": {
+                          "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/SourceMetaDataList/GeocoderResponseMetaData/request",
+                          "type": "string"
+                        },
+                        "found": {
+                          "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/SourceMetaDataList/GeocoderResponseMetaData/found",
+                          "type": "integer"
+                        },
+                        "results": {
+                          "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/SourceMetaDataList/GeocoderResponseMetaData/results",
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "display": {
+                  "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/display",
+                  "type": "string"
+                },
+                "context": {
+                  "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/context",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "features": {
+      "id": "http://jsonschema.net/features",
+      "type": "array",
+      "items": {
+        "id": "http://jsonschema.net/features/0",
+        "type": "object",
+        "properties": {
+          "type": {
+            "id": "http://jsonschema.net/features/0/type",
+            "type": "string"
+          },
+          "properties": {
+            "id": "http://jsonschema.net/features/0/properties",
+            "type": "object",
+            "properties": {
+              "GeocoderMetaData": {
+                "id": "http://jsonschema.net/features/0/properties/GeocoderMetaData",
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "id": "http://jsonschema.net/features/0/properties/GeocoderMetaData/kind",
+                    "type": "string"
+                  },
+                  "text": {
+                    "id": "http://jsonschema.net/features/0/properties/GeocoderMetaData/text",
+                    "type": "string"
+                  },
+                  "precision": {
+                    "id": "http://jsonschema.net/features/0/properties/GeocoderMetaData/precision",
+                    "type": "string"
+                  },
+                  "AddressDetails": {
+                    "id": "http://jsonschema.net/features/0/properties/GeocoderMetaData/AddressDetails",
+                    "type": "object",
+                    "properties": {
+                      "Country": {
+                        "id": "http://jsonschema.net/features/0/properties/GeocoderMetaData/AddressDetails/Country",
+                        "type": "object",
+                        "properties": {
+                          "AddressLine": {
+                            "id": "http://jsonschema.net/features/0/properties/GeocoderMetaData/AddressDetails/Country/AddressLine",
+                            "type": "string"
+                          },
+                          "CountryNameCode": {
+                            "id": "http://jsonschema.net/features/0/properties/GeocoderMetaData/AddressDetails/Country/CountryNameCode",
+                            "type": "string"
+                          },
+                          "CountryName": {
+                            "id": "http://jsonschema.net/features/0/properties/GeocoderMetaData/AddressDetails/Country/CountryName",
+                            "type": "string"
+                          },
+                          "AdministrativeArea": {
+                            "id": "http://jsonschema.net/features/0/properties/GeocoderMetaData/AddressDetails/Country/AdministrativeArea",
+                            "type": "object",
+                            "properties": {
+                              "AdministrativeAreaName": {
+                                "id": "http://jsonschema.net/features/0/properties/GeocoderMetaData/AddressDetails/Country/AdministrativeArea/AdministrativeAreaName",
+                                "type": "string"
+                              },
+                              "SubAdministrativeArea": {
+                                "id": "http://jsonschema.net/features/0/properties/GeocoderMetaData/AddressDetails/Country/AdministrativeArea/SubAdministrativeArea",
+                                "type": "object",
+                                "properties": {
+                                  "SubAdministrativeAreaName": {
+                                    "id": "http://jsonschema.net/features/0/properties/GeocoderMetaData/AddressDetails/Country/AdministrativeArea/SubAdministrativeArea/SubAdministrativeAreaName",
+                                    "type": "string"
+                                  },
+                                  "Locality": {
+                                    "id": "http://jsonschema.net/features/0/properties/GeocoderMetaData/AddressDetails/Country/AdministrativeArea/SubAdministrativeArea/Locality",
+                                    "type": "object",
+                                    "properties": {
+                                      "LocalityName": {
+                                        "id": "http://jsonschema.net/features/0/properties/GeocoderMetaData/AddressDetails/Country/AdministrativeArea/SubAdministrativeArea/Locality/LocalityName",
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "description": {
+                "id": "http://jsonschema.net/features/0/properties/description",
+                "type": "string"
+              },
+              "name": {
+                "id": "http://jsonschema.net/features/0/properties/name",
+                "type": "string"
+              },
+              "boundedBy": {
+                "id": "http://jsonschema.net/features/0/properties/boundedBy",
+                "type": "array",
+                "items": [
+                  {
+                    "id": "http://jsonschema.net/features/0/properties/boundedBy/0",
+                    "type": "array",
+                    "items": [
+                      {
+                        "id": "http://jsonschema.net/features/0/properties/boundedBy/0/0",
+                        "type": "number"
+                      },
+                      {
+                        "id": "http://jsonschema.net/features/0/properties/boundedBy/0/1",
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "http://jsonschema.net/features/0/properties/boundedBy/1",
+                    "type": "array",
+                    "items": [
+                      {
+                        "id": "http://jsonschema.net/features/0/properties/boundedBy/1/0",
+                        "type": "number"
+                      },
+                      {
+                        "id": "http://jsonschema.net/features/0/properties/boundedBy/1/1",
+                        "type": "number"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "geometry": {
+            "id": "http://jsonschema.net/features/0/geometry",
+            "type": "object",
+            "properties": {
+              "type": {
+                "id": "http://jsonschema.net/features/0/geometry/type",
+                "type": "string"
+              },
+              "coordinates": {
+                "id": "http://jsonschema.net/features/0/geometry/coordinates",
+                "type": "array",
+                "items": [
+                  {
+                    "id": "http://jsonschema.net/features/0/geometry/coordinates/0",
+                    "type": "number"
+                  },
+                  {
+                    "id": "http://jsonschema.net/features/0/geometry/coordinates/1",
+                    "type": "number"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "type",
+    "properties",
+    "features"
+  ]
+}

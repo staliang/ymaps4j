@@ -1,0 +1,4 @@
+.idea
+/target/classes/schema
+/target/java-gen/com/staliang/ymaps4j/json/types
+/*.iml

@@ -1,0 +1,449 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "data": {
+      "id": "http://jsonschema.net/data",
+      "type": "object",
+      "properties": {
+        "type": {
+          "id": "http://jsonschema.net/data/type",
+          "type": "string"
+        },
+        "properties": {
+          "id": "http://jsonschema.net/data/properties",
+          "type": "object",
+          "properties": {
+            "RouterMetaData": {
+              "id": "http://jsonschema.net/data/properties/RouterMetaData",
+              "type": "object",
+              "properties": {
+                "Waypoints": {
+                  "id": "http://jsonschema.net/data/properties/RouterMetaData/Waypoints",
+                  "type": "array",
+                  "items": [
+                    {
+                      "id": "http://jsonschema.net/data/properties/RouterMetaData/Waypoints/0",
+                      "type": "object",
+                      "properties": {
+                        "request": {
+                          "id": "http://jsonschema.net/data/properties/RouterMetaData/Waypoints/0/request",
+                          "type": "array",
+                          "items": [
+                            {
+                              "id": "http://jsonschema.net/data/properties/RouterMetaData/Waypoints/0/request/0",
+                              "type": "number"
+                            },
+                            {
+                              "id": "http://jsonschema.net/data/properties/RouterMetaData/Waypoints/0/request/1",
+                              "type": "number"
+                            }
+                          ]
+                        },
+                        "coordinates": {
+                          "id": "http://jsonschema.net/data/properties/RouterMetaData/Waypoints/0/coordinates",
+                          "type": "array",
+                          "items": [
+                            {
+                              "id": "http://jsonschema.net/data/properties/RouterMetaData/Waypoints/0/coordinates/0",
+                              "type": "number"
+                            },
+                            {
+                              "id": "http://jsonschema.net/data/properties/RouterMetaData/Waypoints/0/coordinates/1",
+                              "type": "number"
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "id": "http://jsonschema.net/data/properties/RouterMetaData/Waypoints/1",
+                      "type": "object",
+                      "properties": {
+                        "request": {
+                          "id": "http://jsonschema.net/data/properties/RouterMetaData/Waypoints/1/request",
+                          "type": "array",
+                          "items": [
+                            {
+                              "id": "http://jsonschema.net/data/properties/RouterMetaData/Waypoints/1/request/0",
+                              "type": "number"
+                            },
+                            {
+                              "id": "http://jsonschema.net/data/properties/RouterMetaData/Waypoints/1/request/1",
+                              "type": "number"
+                            }
+                          ]
+                        },
+                        "coordinates": {
+                          "id": "http://jsonschema.net/data/properties/RouterMetaData/Waypoints/1/coordinates",
+                          "type": "array",
+                          "items": [
+                            {
+                              "id": "http://jsonschema.net/data/properties/RouterMetaData/Waypoints/1/coordinates/0",
+                              "type": "number"
+                            },
+                            {
+                              "id": "http://jsonschema.net/data/properties/RouterMetaData/Waypoints/1/coordinates/1",
+                              "type": "number"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "features": {
+          "id": "http://jsonschema.net/data/features",
+          "type": "array",
+          "items": {
+            "id": "http://jsonschema.net/data/features/0",
+            "type": "object",
+            "properties": {
+              "type": {
+                "id": "http://jsonschema.net/data/features/0/type",
+                "type": "string"
+              },
+              "properties": {
+                "id": "http://jsonschema.net/data/features/0/properties",
+                "type": "object",
+                "properties": {
+                  "RouteMetaData": {
+                    "id": "http://jsonschema.net/data/features/0/properties/RouteMetaData",
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "id": "http://jsonschema.net/data/features/0/properties/RouteMetaData/type",
+                        "type": "string"
+                      },
+                      "hasTolls": {
+                        "id": "http://jsonschema.net/data/features/0/properties/RouteMetaData/hasTolls",
+                        "type": "boolean"
+                      },
+                      "Distance": {
+                        "id": "http://jsonschema.net/data/features/0/properties/RouteMetaData/Distance",
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "id": "http://jsonschema.net/data/features/0/properties/RouteMetaData/Distance/value",
+                            "type": "number"
+                          },
+                          "text": {
+                            "id": "http://jsonschema.net/data/features/0/properties/RouteMetaData/Distance/text",
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "Duration": {
+                        "id": "http://jsonschema.net/data/features/0/properties/RouteMetaData/Duration",
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "id": "http://jsonschema.net/data/features/0/properties/RouteMetaData/Duration/value",
+                            "type": "number"
+                          },
+                          "text": {
+                            "id": "http://jsonschema.net/data/features/0/properties/RouteMetaData/Duration/text",
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "DurationInTraffic": {
+                        "id": "http://jsonschema.net/data/features/0/properties/RouteMetaData/DurationInTraffic",
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "id": "http://jsonschema.net/data/features/0/properties/RouteMetaData/DurationInTraffic/value",
+                            "type": "number"
+                          },
+                          "text": {
+                            "id": "http://jsonschema.net/data/features/0/properties/RouteMetaData/DurationInTraffic/text",
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "boundedBy": {
+                    "id": "http://jsonschema.net/data/features/0/properties/boundedBy",
+                    "type": "array",
+                    "items": [
+                      {
+                        "id": "http://jsonschema.net/data/features/0/properties/boundedBy/0",
+                        "type": "array",
+                        "items": [
+                          {
+                            "id": "http://jsonschema.net/data/features/0/properties/boundedBy/0/0",
+                            "type": "number"
+                          },
+                          {
+                            "id": "http://jsonschema.net/data/features/0/properties/boundedBy/0/1",
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "http://jsonschema.net/data/features/0/properties/boundedBy/1",
+                        "type": "array",
+                        "items": [
+                          {
+                            "id": "http://jsonschema.net/data/features/0/properties/boundedBy/1/0",
+                            "type": "number"
+                          },
+                          {
+                            "id": "http://jsonschema.net/data/features/0/properties/boundedBy/1/1",
+                            "type": "number"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              },
+              "features": {
+                "id": "http://jsonschema.net/data/features/0/features",
+                "type": "array",
+                "items": {
+                  "id": "http://jsonschema.net/data/features/0/features/0",
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "id": "http://jsonschema.net/data/features/0/features/0/type",
+                      "type": "string"
+                    },
+                    "properties": {
+                      "id": "http://jsonschema.net/data/features/0/features/0/properties",
+                      "type": "object",
+                      "properties": {
+                        "PathMetaData": {
+                          "id": "http://jsonschema.net/data/features/0/features/0/properties/PathMetaData",
+                          "type": "object",
+                          "properties": {
+                            "Distance": {
+                              "id": "http://jsonschema.net/data/features/0/features/0/properties/PathMetaData/Distance",
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "id": "http://jsonschema.net/data/features/0/features/0/properties/PathMetaData/Distance/value",
+                                  "type": "number"
+                                },
+                                "text": {
+                                  "id": "http://jsonschema.net/data/features/0/features/0/properties/PathMetaData/Distance/text",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "Duration": {
+                              "id": "http://jsonschema.net/data/features/0/features/0/properties/PathMetaData/Duration",
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "id": "http://jsonschema.net/data/features/0/features/0/properties/PathMetaData/Duration/value",
+                                  "type": "number"
+                                },
+                                "text": {
+                                  "id": "http://jsonschema.net/data/features/0/features/0/properties/PathMetaData/Duration/text",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "DurationInTraffic": {
+                              "id": "http://jsonschema.net/data/features/0/features/0/properties/PathMetaData/DurationInTraffic",
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "id": "http://jsonschema.net/data/features/0/features/0/properties/PathMetaData/DurationInTraffic/value",
+                                  "type": "number"
+                                },
+                                "text": {
+                                  "id": "http://jsonschema.net/data/features/0/features/0/properties/PathMetaData/DurationInTraffic/text",
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "boundedBy": {
+                          "id": "http://jsonschema.net/data/features/0/features/0/properties/boundedBy",
+                          "type": "array",
+                          "items": [
+                            {
+                              "id": "http://jsonschema.net/data/features/0/features/0/properties/boundedBy/0",
+                              "type": "array",
+                              "items": [
+                                {
+                                  "id": "http://jsonschema.net/data/features/0/features/0/properties/boundedBy/0/0",
+                                  "type": "number"
+                                },
+                                {
+                                  "id": "http://jsonschema.net/data/features/0/features/0/properties/boundedBy/0/1",
+                                  "type": "number"
+                                }
+                              ]
+                            },
+                            {
+                              "id": "http://jsonschema.net/data/features/0/features/0/properties/boundedBy/1",
+                              "type": "array",
+                              "items": [
+                                {
+                                  "id": "http://jsonschema.net/data/features/0/features/0/properties/boundedBy/1/0",
+                                  "type": "number"
+                                },
+                                {
+                                  "id": "http://jsonschema.net/data/features/0/features/0/properties/boundedBy/1/1",
+                                  "type": "number"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "encodedCoordinates": {
+                          "id": "http://jsonschema.net/data/features/0/features/0/properties/encodedCoordinates",
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "features": {
+                      "id": "http://jsonschema.net/data/features/0/features/0/features",
+                      "type": "array",
+                      "items": {
+                        "id": "http://jsonschema.net/data/features/0/features/0/features/0",
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "id": "http://jsonschema.net/data/features/0/features/0/features/0/type",
+                            "type": "string"
+                          },
+                          "properties": {
+                            "id": "http://jsonschema.net/data/features/0/features/0/features/0/properties",
+                            "type": "object",
+                            "properties": {
+                              "SegmentMetaData": {
+                                "id": "http://jsonschema.net/data/features/0/features/0/features/0/properties/SegmentMetaData",
+                                "type": "object",
+                                "properties": {
+                                  "street": {
+                                    "id": "http://jsonschema.net/data/features/0/features/0/features/0/properties/SegmentMetaData/street",
+                                    "type": "string"
+                                  },
+                                  "Action": {
+                                    "id": "http://jsonschema.net/data/features/0/features/0/features/0/properties/SegmentMetaData/Action",
+                                    "type": "object",
+                                    "properties": {
+                                      "value": {
+                                        "id": "http://jsonschema.net/data/features/0/features/0/features/0/properties/SegmentMetaData/Action/value",
+                                        "type": "string"
+                                      },
+                                      "text": {
+                                        "id": "http://jsonschema.net/data/features/0/features/0/features/0/properties/SegmentMetaData/Action/text",
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "angle": {
+                                    "id": "http://jsonschema.net/data/features/0/features/0/features/0/properties/SegmentMetaData/angle",
+                                    "type": "integer"
+                                  },
+                                  "Distance": {
+                                    "id": "http://jsonschema.net/data/features/0/features/0/features/0/properties/SegmentMetaData/Distance",
+                                    "type": "object",
+                                    "properties": {
+                                      "value": {
+                                        "id": "http://jsonschema.net/data/features/0/features/0/features/0/properties/SegmentMetaData/Distance/value",
+                                        "type": "number"
+                                      },
+                                      "text": {
+                                        "id": "http://jsonschema.net/data/features/0/features/0/features/0/properties/SegmentMetaData/Distance/text",
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "Duration": {
+                                    "id": "http://jsonschema.net/data/features/0/features/0/features/0/properties/SegmentMetaData/Duration",
+                                    "type": "object",
+                                    "properties": {
+                                      "value": {
+                                        "id": "http://jsonschema.net/data/features/0/features/0/features/0/properties/SegmentMetaData/Duration/value",
+                                        "type": "number"
+                                      },
+                                      "text": {
+                                        "id": "http://jsonschema.net/data/features/0/features/0/features/0/properties/SegmentMetaData/Duration/text",
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "DurationInTraffic": {
+                                    "id": "http://jsonschema.net/data/features/0/features/0/features/0/properties/SegmentMetaData/DurationInTraffic",
+                                    "type": "object",
+                                    "properties": {
+                                      "value": {
+                                        "id": "http://jsonschema.net/data/features/0/features/0/features/0/properties/SegmentMetaData/DurationInTraffic/value",
+                                        "type": "number"
+                                      },
+                                      "text": {
+                                        "id": "http://jsonschema.net/data/features/0/features/0/features/0/properties/SegmentMetaData/DurationInTraffic/text",
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "text": {
+                                    "id": "http://jsonschema.net/data/features/0/features/0/features/0/properties/SegmentMetaData/text",
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "geometry": {
+                            "id": "http://jsonschema.net/data/features/0/features/0/features/0/geometry",
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "id": "http://jsonschema.net/data/features/0/features/0/features/0/geometry/type",
+                                "type": "string"
+                              },
+                              "geometries": {
+                                "id": "http://jsonschema.net/data/features/0/features/0/features/0/geometry/geometries",
+                                "type": "array",
+                                "items": {
+                                  "id": "http://jsonschema.net/data/features/0/features/0/features/0/geometry/geometries/0",
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "id": "http://jsonschema.net/data/features/0/features/0/features/0/geometry/geometries/0/type",
+                                      "type": "string"
+                                    },
+                                    "lodIndex": {
+                                      "id": "http://jsonschema.net/data/features/0/features/0/features/0/geometry/geometries/0/lodIndex",
+                                      "type": "integer"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "type",
+        "properties",
+        "features"
+      ]
+    }
+  },
+  "required": [
+    "data"
+  ]
+}
