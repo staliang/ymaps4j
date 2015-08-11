@@ -2,3 +2,5 @@
 /target/classes/schema
 /target/java-gen/com/staliang/ymaps4j/json/types
 /*.iml
+/target/classes/com/staliang/ymaps4j
+/target/test-classes/com/staliang/ymaps4j/impl
