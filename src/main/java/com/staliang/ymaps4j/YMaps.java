@@ -9,17 +9,17 @@ public interface YMaps {
 
     /**
     * Определение название объекта по его координатам
-    * @param point
+     * @param coordinate
     * @return
             */
-    String geocode(Point point) throws YMapsException;
+    String geocode(Coordinate coordinate) throws YMapsException;
 
     /**
      * Определение координаты объекта по его названию
      * @param location
      * @return
      */
-    Point geocode(String location) throws YMapsException;
+    Coordinate geocode(String location) throws YMapsException;
 
     /**
      * Проложить маршрут по названиям точек маршрута
@@ -31,9 +31,9 @@ public interface YMaps {
 
     /**
      * Проложить маршрут по координатам точек маршрута
-     * @param points
+     * @param coordinates
      * @return
      * @throws YMapsException
      */
-    Route route(Point... points) throws YMapsException;
+    Route route(Coordinate... coordinates) throws YMapsException;
 }

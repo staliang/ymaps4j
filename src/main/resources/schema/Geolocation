@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "longitude": {
+      "id": "http://jsonschema.net/longitude",
+      "type": "number"
+    },
+    "latitude": {
+      "id": "http://jsonschema.net/latitude",
+      "type": "number"
+    },
+    "isHighAccuracy": {
+      "id": "http://jsonschema.net/isHighAccuracy",
+      "type": "boolean"
+    },
+    "city": {
+      "id": "http://jsonschema.net/city",
+      "type": "string"
+    },
+    "region": {
+      "id": "http://jsonschema.net/region",
+      "type": "string"
+    },
+    "country": {
+      "id": "http://jsonschema.net/country",
+      "type": "string"
+    },
+    "zoom": {
+      "id": "http://jsonschema.net/zoom",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "longitude",
+    "latitude",
+    "isHighAccuracy",
+    "city",
+    "region",
+    "country",
+    "zoom"
+  ]
+}
