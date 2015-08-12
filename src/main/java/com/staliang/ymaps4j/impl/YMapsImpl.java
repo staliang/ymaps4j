@@ -73,6 +73,10 @@ class YMapsImpl implements YMaps {
     }
 
     public Geolocation geolocation() throws YMapsException {
+        if (!initialised) {
+            throw new YMapsException("YMaps must be initialised. For initialization use method init().");
+        }
+
         return geolocation;
     }
 
@@ -110,7 +114,7 @@ class YMapsImpl implements YMaps {
         if (geocode.getFeatures().isEmpty()) {
             throw new YMapsException("The location not found");
         }
-        return geocode.getFeatures().get(0).getProperties().getName();
+        return geocode.getFeatures().get(0).getProperties().getGeocoderMetaData().getText();
     }
 
     public Route route(String... locations) throws YMapsException {
