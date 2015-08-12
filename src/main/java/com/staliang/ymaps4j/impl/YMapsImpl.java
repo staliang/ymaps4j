@@ -31,6 +31,7 @@ class YMapsImpl implements YMaps {
     private String token;
     private Geolocation geolocation;
     private CoordinatesOrder coordinatesOrder;
+    private boolean initialised = false;
 
     public YMapsImpl() {
         this(Locale.getDefault());
@@ -63,6 +64,8 @@ class YMapsImpl implements YMaps {
 
             String rawCoordinatesOrder = stringMap.get("[\"coordinatesOrder\"]");
             coordinatesOrder = CoordinatesOrder.getBySysName(rawCoordinatesOrder.substring(1, rawCoordinatesOrder.length() - 2));
+
+            initialised = true;
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new YMapsException(e);
@@ -74,6 +77,10 @@ class YMapsImpl implements YMaps {
     }
 
     private Geocode requestGeocode(String location, CoordinatesOrder coordinatesOrder) throws YMapsException {
+        if (!initialised) {
+            throw new YMapsException("YMaps must be initialised. For initialization use method init().");
+        }
+
         try {
             String s = URLEncoder.encode(location, "UTF-8");
             URI uri = new URI("https://api-maps.yandex.ru/services/search/v1/?text=" + s + "&format=json&rspn=0&lang=" + locale + "&results=Geocode&token=" + token + "&type=geo&properties=addressdetails&geocoder_sco="+ coordinatesOrder.getSysName()+"&origin=jsapi2Geocoder");
@@ -120,6 +127,10 @@ class YMapsImpl implements YMaps {
     }
 
     public Route route(Coordinate... coordinates) throws YMapsException {
+        if (!initialised) {
+            throw new YMapsException("YMaps must be initialised. For initialization use method init().");
+        }
+        
         try {
             String string = Stream.of(coordinates)
                     .map(point -> String.format("%s%%2C%s", point.getLongitude(), point.getLatitude()))
