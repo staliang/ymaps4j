@@ -20,7 +20,7 @@ public class YMapsImplTest {
 
     @Before
     public void before() throws YMapsException {
-        yMaps = new YMapsImpl(Locale.forLanguageTag("ru"));
+        yMaps = new YMapsImpl(Locale.ENGLISH);
         yMaps.init();
     }
 
@@ -30,12 +30,12 @@ public class YMapsImplTest {
     }
 
     @Test
-    public void testGeocode() throws YMapsException {
+    public void testForwardGeocode() throws YMapsException {
         assertEquals(new Coordinate(37.620393, 55.75396), yMaps.geocode("Moscow"));
     }
 
     @Test
-    public void testGeocode1() throws YMapsException {
+    public void testReverseGeocode() throws YMapsException {
         assertEquals("Red Square", yMaps.geocode(new Coordinate(37.620393, 55.75396)));
     }
 

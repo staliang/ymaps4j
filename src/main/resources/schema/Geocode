@@ -152,6 +152,30 @@
                         "results": {
                           "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/SourceMetaDataList/GeocoderResponseMetaData/results",
                           "type": "integer"
+                        },
+                        "Point": {
+                          "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/SourceMetaDataList/GeocoderResponseMetaData/Point",
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/SourceMetaDataList/GeocoderResponseMetaData/Point/type",
+                              "type": "string"
+                            },
+                            "coordinates": {
+                              "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/SourceMetaDataList/GeocoderResponseMetaData/Point/coordinates",
+                              "type": "array",
+                              "items": [
+                                {
+                                  "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/SourceMetaDataList/GeocoderResponseMetaData/Point/coordinates/0",
+                                  "type": "number"
+                                },
+                                {
+                                  "id": "http://jsonschema.net/properties/ResponseMetaData/SearchResponse/SourceMetaDataList/GeocoderResponseMetaData/Point/coordinates/1",
+                                  "type": "number"
+                                }
+                              ]
+                            }
+                          }
                         }
                       }
                     }
@@ -245,6 +269,16 @@
                                       "LocalityName": {
                                         "id": "http://jsonschema.net/features/0/properties/GeocoderMetaData/AddressDetails/Country/AdministrativeArea/SubAdministrativeArea/Locality/LocalityName",
                                         "type": "string"
+                                      },
+                                      "Thoroughfare": {
+                                        "id": "http://jsonschema.net/features/0/properties/GeocoderMetaData/AddressDetails/Country/AdministrativeArea/SubAdministrativeArea/Locality/Thoroughfare",
+                                        "type": "object",
+                                        "properties": {
+                                          "ThoroughfareName": {
+                                            "id": "http://jsonschema.net/features/0/properties/GeocoderMetaData/AddressDetails/Country/AdministrativeArea/SubAdministrativeArea/Locality/Thoroughfare/ThoroughfareName",
+                                            "type": "string"
+                                          }
+                                        }
                                       }
                                     }
                                   }
@@ -262,8 +296,8 @@
                 "id": "http://jsonschema.net/features/0/properties/description",
                 "type": "string"
               },
-              "sysName": {
-                "id": "http://jsonschema.net/features/0/properties/sysName",
+              "name": {
+                "id": "http://jsonschema.net/features/0/properties/name",
                 "type": "string"
               },
               "boundedBy": {

@@ -130,7 +130,7 @@ class YMapsImpl implements YMaps {
         if (!initialised) {
             throw new YMapsException("YMaps must be initialised. For initialization use method init().");
         }
-        
+
         try {
             String string = Stream.of(coordinates)
                     .map(point -> String.format("%s%%2C%s", point.getLongitude(), point.getLatitude()))
