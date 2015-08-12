@@ -262,8 +262,8 @@
                 "id": "http://jsonschema.net/features/0/properties/description",
                 "type": "string"
               },
-              "name": {
-                "id": "http://jsonschema.net/features/0/properties/name",
+              "sysName": {
+                "id": "http://jsonschema.net/features/0/properties/sysName",
                 "type": "string"
               },
               "boundedBy": {

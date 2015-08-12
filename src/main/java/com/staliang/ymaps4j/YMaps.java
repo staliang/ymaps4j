@@ -1,5 +1,6 @@
 package com.staliang.ymaps4j;
 
+import com.staliang.ymaps4j.json.types.Geolocation;
 import com.staliang.ymaps4j.json.types.Route;
 
 /**
@@ -8,21 +9,37 @@ import com.staliang.ymaps4j.json.types.Route;
 public interface YMaps {
 
     /**
-    * Определение название объекта по его координатам
+     * Initialize YMaps
+     */
+    void init() throws YMapsException;
+
+    /**
+     * Detecting the user's location
+     *
+     * @return
+     * @throws YMapsException
+     */
+    Geolocation geolocation() throws YMapsException;
+
+    /**
+     * Find an object's name based on its coordinates (reverse geocoding)
+     *
      * @param coordinate
-    * @return
-            */
+     * @return
+     */
     String geocode(Coordinate coordinate) throws YMapsException;
 
     /**
-     * Определение координаты объекта по его названию
+     * Determine an object's geographical coordinates based on its name (forward geocoding)
+     *
      * @param location
      * @return
      */
     Coordinate geocode(String location) throws YMapsException;
 
     /**
-     * Проложить маршрут по названиям точек маршрута
+     * Build driving routes
+     *
      * @param locations
      * @return
      * @throws YMapsException
@@ -30,7 +47,8 @@ public interface YMaps {
     Route route(String... locations) throws YMapsException;
 
     /**
-     * Проложить маршрут по координатам точек маршрута
+     * Build driving routes
+     *
      * @param coordinates
      * @return
      * @throws YMapsException

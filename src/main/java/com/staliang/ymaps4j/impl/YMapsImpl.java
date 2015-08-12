@@ -1,26 +1,19 @@
 package com.staliang.ymaps4j.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.staliang.ymaps4j.Coordinate;
 import com.staliang.ymaps4j.YMaps;
 import com.staliang.ymaps4j.YMapsException;
 import com.staliang.ymaps4j.json.types.Geocode;
+import com.staliang.ymaps4j.json.types.Geolocation;
 import com.staliang.ymaps4j.json.types.Geometry;
 import com.staliang.ymaps4j.json.types.Route;
-import org.apache.commons.io.IOUtils;
-import org.apache.http.*;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.GzipDecompressingEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.HttpContext;
+import com.staliang.ymaps4j.util.JSONUtil;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -30,98 +23,69 @@ import java.util.stream.Stream;
  */
 class YMapsImpl implements YMaps {
 
-    private static final Logger LOGGER = Logger.getLogger(YMapsImpl.class);
+    private static final Logger logger = Logger.getLogger(YMapsImpl.class);
+
+    private final Locale locale;
+    private final YMapsHttpClient client;
 
     private String token;
-    private HttpClient client;
-    private Map<String, String> params = new HashMap<String, String>();
-
-    private DefaultHttpClient prepareHttpClient() {
-        DefaultHttpClient client = new DefaultHttpClient();
-        client.addRequestInterceptor(new HttpRequestInterceptor() {
-
-            public void process(
-                    final HttpRequest request,
-                    final HttpContext context) throws HttpException, IOException {
-                if (!request.containsHeader("Accept-Encoding")) {
-                    request.addHeader("Accept-Encoding", "gzip");
-                }
-            }
-
-        });
-
-        client.addResponseInterceptor(new HttpResponseInterceptor() {
-
-            public void process(
-                    final HttpResponse response,
-                    final HttpContext context) throws HttpException, IOException {
-                HttpEntity entity = response.getEntity();
-                if (entity != null) {
-                    Header header = entity.getContentEncoding();
-                    if (header != null) {
-                        HeaderElement[] elements = header.getElements();
-                        for (int i = 0; i < elements.length; i++) {
-                            if (elements[i].getName().equalsIgnoreCase("gzip")) {
-                                response.setEntity(
-                                        new GzipDecompressingEntity(response.getEntity()));
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-
-        });
-        return client;
-    }
-
-    private static String doGet(HttpClient client, URI uri) throws IOException {
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug(uri);
-        }
-        HttpResponse resp = client.execute(new HttpGet(uri));
-        String result = new String(IOUtils.toByteArray(resp.getEntity().getContent()), "UTF-8");
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug(result);
-        }
-        return result;
-    }
-
-    public void init() throws IOException, URISyntaxException {
-        client = prepareHttpClient();
-
-        URI uri = new URI("https://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU");
-        String getResult = doGet(client, uri);
-        String[] strings = getResult.split("project_data");
-        for (int i = 0; i < strings.length; i++) {
-            if (strings[i].startsWith("[")) {
-                String[] split = strings[i].split("=");
-                params.put(split[0], split[1]);
-            }
-        }
-
-        token = params.get("[\"token\"]");
-        token = token.substring(1, token.length() - 3);
-    }
+    private Geolocation geolocation;
+    private CoordinatesOrder coordinatesOrder;
 
     public YMapsImpl() {
+        this(Locale.getDefault());
+    }
+
+    public YMapsImpl(Locale locale) {
+        this.locale = locale;
+        this.client = new YMapsHttpClient();
+    }
+
+    public void init() throws YMapsException {
         try {
-            init();
+            URI uri = new URI(String.format("https://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=%s", locale));
+            String getResult = client.get(uri);
+
+            Map<String, String> stringMap = new HashMap<>();
+            String[] strings = getResult.split("project_data");
+            for (int i = 0; i < strings.length; i++) {
+                if (strings[i].startsWith("[")) {
+                    String[] split = strings[i].split("=");
+                    stringMap.put(split[0].trim(), split[1].trim());
+                }
+            }
+
+            String rawToken = stringMap.get("[\"token\"]");
+            token = rawToken.substring(1, rawToken.length() - 2);
+
+            String rawGeolocation = stringMap.get("[\"geolocation\"]");
+            geolocation = JSONUtil.fromJSON(rawGeolocation.substring(0, rawGeolocation.length() - 1), Geolocation.class);
+
+            String rawCoordinatesOrder = stringMap.get("[\"coordinatesOrder\"]");
+            coordinatesOrder = CoordinatesOrder.getBySysName(rawCoordinatesOrder.substring(1, rawCoordinatesOrder.length() - 2));
         } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
+            logger.error(e.getMessage(), e);
+            throw new YMapsException(e);
+        }
+    }
+
+    public Geolocation geolocation() throws YMapsException {
+        return geolocation;
+    }
+
+    private Geocode requestGeocode(String location, CoordinatesOrder coordinatesOrder) throws YMapsException {
+        try {
+            String s = URLEncoder.encode(location, "UTF-8");
+            URI uri = new URI("https://api-maps.yandex.ru/services/search/v1/?text=" + s + "&format=json&rspn=0&lang=" + locale + "&results=Geocode&token=" + token + "&type=geo&properties=addressdetails&geocoder_sco="+ coordinatesOrder.getSysName()+"&origin=jsapi2Geocoder");
+            return JSONUtil.fromJSON(client.get(uri), Geocode.class);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new YMapsException(e);
         }
     }
 
     private Geocode requestGeocode(String location) throws YMapsException {
-        try {
-            String s = URLEncoder.encode(location, "UTF-8");
-            URI uri = new URI("https://api-maps.yandex.ru/services/search/v1/?text=" + s + "&format=json&rspn=0&lang=ru_RU&results=Geocode&token=" + token + "&type=geo&properties=addressdetails&geocoder_sco=latlong&origin=jsapi2Geocoder");
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(doGet(client, uri), Geocode.class);
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
-            throw new YMapsException(e);
-        }
+        return requestGeocode(location, coordinatesOrder);
     }
 
     public Coordinate geocode(String location) throws YMapsException {
@@ -134,7 +98,8 @@ class YMapsImpl implements YMaps {
     }
 
     public String geocode(Coordinate coordinate) throws YMapsException {
-        Geocode geocode = requestGeocode(String.format("%s %s", coordinate.getLatitude(), coordinate.getLongitude()));
+        String location = String.format("%s %s", coordinate.getLongitude(), coordinate.getLatitude());
+        Geocode geocode = requestGeocode(location, CoordinatesOrder.LONGLAT);
         if (geocode.getFeatures().isEmpty()) {
             throw new YMapsException("The location not found");
         }
@@ -149,22 +114,20 @@ class YMapsImpl implements YMaps {
             }
             return route(coordinates);
         } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
+            logger.error(e.getMessage(), e);
             throw new YMapsException(e);
         }
     }
 
     public Route route(Coordinate... coordinates) throws YMapsException {
         try {
-            Stream<Coordinate> stream = Stream.of(coordinates);
-            String s = stream.map(point -> String.format("%f %f", point.getLongitude(), point.getLatitude()))
+            String string = Stream.of(coordinates)
+                    .map(point -> String.format("%s%%2C%s", point.getLongitude(), point.getLatitude()))
                     .collect(Collectors.joining("~"));
-            String url = String.format("https://api-maps.yandex.ru/services/route/2.0/?rll=%s&lang=ru_RU&token=%s&results=1&rtm=atm", s, token);
-            URI uri = new URI(url.replace(" ", "%2C"));
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(doGet(client, uri), Route.class);
+            String url = String.format("https://api-maps.yandex.ru/services/route/2.0/?rll=%s&lang=%s&token=%s&results=1&rtm=atm", string, locale, token);
+            return JSONUtil.fromJSON(client.get(new URI(url)), Route.class);
         } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
+            logger.error(e.getMessage(), e);
             throw new YMapsException(e);
         }
     }
