@@ -4,3 +4,4 @@
 /*.iml
 /target/classes/com/staliang/ymaps4j
 /target/test-classes/com/staliang/ymaps4j/impl
+/target/test-classes

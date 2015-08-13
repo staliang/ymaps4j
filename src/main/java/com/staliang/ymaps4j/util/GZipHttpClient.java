@@ -7,6 +7,7 @@ import org.apache.http.client.entity.GzipDecompressingEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HttpContext;
+import org.apache.log4j.Logger;
 
 
 import java.io.IOException;
@@ -16,6 +17,8 @@ import java.net.URI;
  * Created by Alexandr_Badin on 12.08.2015
  */
 public class GZipHttpClient {
+
+    private static final Logger LOGGER = Logger.getLogger(GZipHttpClient.class);
 
     private final HttpClient client;
 
@@ -63,7 +66,17 @@ public class GZipHttpClient {
     }
 
     public String get(URI uri) throws IOException {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug(uri);
+        }
+
         HttpResponse resp = client.execute(new HttpGet(uri));
-        return new String(IOUtils.toByteArray(resp.getEntity().getContent()), "UTF-8");
+        String result = new String(IOUtils.toByteArray(resp.getEntity().getContent()), "UTF-8");
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug(result);
+        }
+
+        return result;
     }
 }

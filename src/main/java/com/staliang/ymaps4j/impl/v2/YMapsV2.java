@@ -24,7 +24,7 @@ import java.util.stream.Stream;
  */
 public class YMapsV2 implements YMaps {
 
-    private static final Logger logger = Logger.getLogger(YMapsV2.class);
+    private static final Logger LOGGER = Logger.getLogger(YMapsV2.class);
 
     private final Locale locale;
     private final GZipHttpClient client;
@@ -64,7 +64,7 @@ public class YMapsV2 implements YMaps {
 
             initialised = true;
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
             throw new YMapsException(e);
         }
     }
@@ -87,7 +87,7 @@ public class YMapsV2 implements YMaps {
             URI uri = new URI("https://api-maps.yandex.ru/services/search/v1/?text=" + s + "&format=json&rspn=0&lang=" + locale + "&results=Geocode&token=" + token + "&type=geo&properties=addressdetails&geocoder_sco="+ coordinatesOrder.getSysName()+"&origin=jsapi2Geocoder");
             return JsonUtil.fromJson(client.get(uri), Geocode.class);
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
             throw new YMapsException(e);
         }
     }
@@ -128,7 +128,7 @@ public class YMapsV2 implements YMaps {
             }
             return route(coordinates);
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
             throw new YMapsException(e);
         }
     }
@@ -143,7 +143,7 @@ public class YMapsV2 implements YMaps {
             String url = String.format("https://api-maps.yandex.ru/services/route/2.0/?rll=%s&lang=%s&token=%s&results=1&rtm=atm", string, locale, token);
             return Adapter.convert(JsonUtil.fromJson(client.get(new URI(url)), com.staliang.ymaps4j.json.types.Route.class));
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
             throw new YMapsException(e);
         }
     }
