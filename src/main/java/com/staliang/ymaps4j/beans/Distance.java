@@ -1,14 +1,14 @@
-package com.staliang.ymaps4j;
+package com.staliang.ymaps4j.beans;
 
 /**
  * Created by Alexandr_Badin on 13.08.2015
  */
-public class Duration {
+public class Distance {
 
     private final Double value;
     private final String text;
 
-    public Duration(Double value, String text) {
+    public Distance(Double value, String text) {
         this.value = value;
         this.text = text;
     }
@@ -23,7 +23,7 @@ public class Duration {
 
     @Override
     public String toString() {
-        return "Duration{" +
+        return "Distance{" +
                 "value=" + value +
                 ", text='" + text + '\'' +
                 '}';

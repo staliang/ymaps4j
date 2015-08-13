@@ -1,4 +1,4 @@
-package com.staliang.ymaps4j.impl;
+package com.staliang.ymaps4j.util;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.*;
@@ -15,7 +15,7 @@ import java.net.URI;
 /**
  * Created by Alexandr_Badin on 12.08.2015
  */
-class YMapsHttpClient {
+public class GZipHttpClient {
 
     private final HttpClient client;
 
@@ -58,7 +58,7 @@ class YMapsHttpClient {
         return client;
     }
 
-    public YMapsHttpClient() {
+    public GZipHttpClient() {
         client = getClient();
     }
 

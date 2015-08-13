@@ -1,9 +1,13 @@
-package com.staliang.ymaps4j.impl;
+package com.staliang.ymaps4j.impl.v2;
 
 import com.staliang.ymaps4j.*;
+import com.staliang.ymaps4j.beans.Coordinate;
+import com.staliang.ymaps4j.beans.Geolocation;
+import com.staliang.ymaps4j.beans.Route;
 import com.staliang.ymaps4j.json.types.Geocode;
 import com.staliang.ymaps4j.json.types.Geometry;
-import com.staliang.ymaps4j.util.JSONUtil;
+import com.staliang.ymaps4j.util.GZipHttpClient;
+import com.staliang.ymaps4j.util.JsonUtil;
 import org.apache.log4j.Logger;
 
 import java.net.URI;
@@ -17,25 +21,21 @@ import java.util.stream.Stream;
 /**
  * Created by Alexandr_Badin on 11.08.2015.
  */
-class YMapsImpl implements YMaps {
+public class YMapsV2 implements YMaps {
 
-    private static final Logger logger = Logger.getLogger(YMapsImpl.class);
+    private static final Logger logger = Logger.getLogger(YMapsV2.class);
 
     private final Locale locale;
-    private final YMapsHttpClient client;
+    private final GZipHttpClient client;
 
     private String token;
     private Geolocation geolocation;
     private CoordinatesOrder coordinatesOrder;
     private boolean initialised = false;
 
-    public YMapsImpl() {
-        this(Locale.getDefault());
-    }
-
-    public YMapsImpl(Locale locale) {
+    public YMapsV2(Locale locale) {
         this.locale = locale;
-        this.client = new YMapsHttpClient();
+        this.client = new GZipHttpClient();
     }
 
     public void init() throws YMapsException {
@@ -56,7 +56,7 @@ class YMapsImpl implements YMaps {
             token = rawToken.substring(1, rawToken.length() - 2);
 
             String rawGeolocation = stringMap.get("[\"geolocation\"]");
-            geolocation = Adapter.convert(JSONUtil.fromJSON(rawGeolocation.substring(0, rawGeolocation.length() - 1), com.staliang.ymaps4j.json.types.Geolocation.class));
+            geolocation = Adapter.convert(JsonUtil.fromJson(rawGeolocation.substring(0, rawGeolocation.length() - 1), com.staliang.ymaps4j.json.types.Geolocation.class));
 
             String rawCoordinatesOrder = stringMap.get("[\"coordinatesOrder\"]");
             coordinatesOrder = CoordinatesOrder.getBySysName(rawCoordinatesOrder.substring(1, rawCoordinatesOrder.length() - 2));
@@ -84,7 +84,7 @@ class YMapsImpl implements YMaps {
         try {
             String s = URLEncoder.encode(location, "UTF-8");
             URI uri = new URI("https://api-maps.yandex.ru/services/search/v1/?text=" + s + "&format=json&rspn=0&lang=" + locale + "&results=Geocode&token=" + token + "&type=geo&properties=addressdetails&geocoder_sco="+ coordinatesOrder.getSysName()+"&origin=jsapi2Geocoder");
-            return JSONUtil.fromJSON(client.get(uri), Geocode.class);
+            return JsonUtil.fromJson(client.get(uri), Geocode.class);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new YMapsException(e);
@@ -140,7 +140,7 @@ class YMapsImpl implements YMaps {
                     .map(point -> String.format("%s%%2C%s", point.getLongitude(), point.getLatitude()))
                     .collect(Collectors.joining("~"));
             String url = String.format("https://api-maps.yandex.ru/services/route/2.0/?rll=%s&lang=%s&token=%s&results=1&rtm=atm", string, locale, token);
-            return Adapter.convert(JSONUtil.fromJSON(client.get(new URI(url)), com.staliang.ymaps4j.json.types.Route.class));
+            return Adapter.convert(JsonUtil.fromJson(client.get(new URI(url)), com.staliang.ymaps4j.json.types.Route.class));
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new YMapsException(e);

@@ -1,9 +1,10 @@
 package com.staliang.ymaps4j.impl;
 
-import com.staliang.ymaps4j.Coordinate;
+import com.staliang.ymaps4j.beans.Coordinate;
 import com.staliang.ymaps4j.YMaps;
 import com.staliang.ymaps4j.YMapsException;
-import com.staliang.ymaps4j.Route;
+import com.staliang.ymaps4j.beans.Route;
+import com.staliang.ymaps4j.impl.v2.YMapsV2;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -15,7 +16,7 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Created by Alexandr_Badin on 11.08.2015.
  */
-public class YMapsImplTest {
+public class YMapsV2Test {
 
     public static final String MOSCOW = "Moscow";
     public static final String SAMARA = "Samara";
@@ -26,7 +27,7 @@ public class YMapsImplTest {
 
     @BeforeClass
     public static void before() throws YMapsException {
-        yMaps = new YMapsImpl(Locale.ENGLISH);
+        yMaps = new YMapsV2(Locale.ENGLISH);
         yMaps.init();
     }
 

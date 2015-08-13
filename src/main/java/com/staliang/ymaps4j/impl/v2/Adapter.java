@@ -1,6 +1,6 @@
-package com.staliang.ymaps4j.impl;
+package com.staliang.ymaps4j.impl.v2;
 
-import com.staliang.ymaps4j.*;
+import com.staliang.ymaps4j.beans.*;
 import com.staliang.ymaps4j.json.types.Feature___;
 import com.staliang.ymaps4j.json.types.PathMetaData;
 import com.staliang.ymaps4j.json.types.RouteMetaData;

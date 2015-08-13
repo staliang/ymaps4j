@@ -1,5 +1,9 @@
 package com.staliang.ymaps4j;
 
+import com.staliang.ymaps4j.beans.Coordinate;
+import com.staliang.ymaps4j.beans.Geolocation;
+import com.staliang.ymaps4j.beans.Route;
+
 /**
  * Created by Alexandr_Badin on 11.08.2015.
  */
@@ -35,7 +39,7 @@ public interface YMaps {
     Coordinate geocode(String location) throws YMapsException;
 
     /**
-     * Build driving routes
+     * Build driving routes by locations
      *
      * @param locations
      * @return
@@ -44,7 +48,7 @@ public interface YMaps {
     Route route(String... locations) throws YMapsException;
 
     /**
-     * Build driving routes
+     * Build driving routes by coordinates
      *
      * @param coordinates
      * @return

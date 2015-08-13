@@ -1,4 +1,4 @@
-package com.staliang.ymaps4j.impl;
+package com.staliang.ymaps4j.impl.v2;
 
 /**
  * Created by Alexandr_Badin on 12.08.2015

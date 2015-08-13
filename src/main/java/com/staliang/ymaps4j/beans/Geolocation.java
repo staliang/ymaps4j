@@ -1,4 +1,6 @@
-package com.staliang.ymaps4j;
+package com.staliang.ymaps4j.beans;
+
+import com.staliang.ymaps4j.beans.Coordinate;
 
 /**
  * Created by Alexandr_Badin on 13.08.2015

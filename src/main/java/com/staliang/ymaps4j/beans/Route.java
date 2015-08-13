@@ -1,4 +1,4 @@
-package com.staliang.ymaps4j;
+package com.staliang.ymaps4j.beans;
 
 import java.util.List;
 
