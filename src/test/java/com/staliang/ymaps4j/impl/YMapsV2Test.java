@@ -1,10 +1,11 @@
 package com.staliang.ymaps4j.impl;
 
-import com.staliang.ymaps4j.beans.Coordinate;
 import com.staliang.ymaps4j.YMaps;
+import com.staliang.ymaps4j.YMapsFactory;
+import com.staliang.ymaps4j.beans.Coordinate;
 import com.staliang.ymaps4j.beans.Route;
+import com.staliang.ymaps4j.beans.YMapsVersion;
 import com.staliang.ymaps4j.exception.YMapsException;
-import com.staliang.ymaps4j.impl.v2.YMapsV2;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -27,7 +28,7 @@ public class YMapsV2Test {
 
     @BeforeClass
     public static void before() throws YMapsException {
-        yMaps = new YMapsV2(Locale.ENGLISH);
+        yMaps = YMapsFactory.getMaps(YMapsVersion.V2, Locale.ENGLISH);
         yMaps.init();
     }
 

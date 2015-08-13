@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * Created by Alexandr_Badin on 12.08.2015
@@ -65,12 +66,12 @@ public class GZipHttpClient {
         client = getClient();
     }
 
-    public String get(URI uri) throws IOException {
+    public String get(String url) throws IOException, URISyntaxException {
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug(uri);
+            LOGGER.debug(url);
         }
 
-        HttpResponse resp = client.execute(new HttpGet(uri));
+        HttpResponse resp = client.execute(new HttpGet(new URI(url)));
         String result = new String(IOUtils.toByteArray(resp.getEntity().getContent()), "UTF-8");
 
         if (LOGGER.isDebugEnabled()) {
