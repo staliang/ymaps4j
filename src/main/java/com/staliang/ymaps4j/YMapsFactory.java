@@ -11,6 +11,10 @@ import java.util.Locale;
  */
 public abstract class YMapsFactory {
 
+    public static YMaps getMaps(YMapsVersion mapsVersion) throws YMapsException {
+        return getMaps(mapsVersion, Locale.getDefault());
+    }
+
     public static YMaps getMaps(YMapsVersion mapsVersion, Locale locale) throws YMapsException {
         switch (mapsVersion){
             case V2:
