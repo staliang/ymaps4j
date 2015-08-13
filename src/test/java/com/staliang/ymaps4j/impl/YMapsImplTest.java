@@ -3,7 +3,7 @@ package com.staliang.ymaps4j.impl;
 import com.staliang.ymaps4j.Coordinate;
 import com.staliang.ymaps4j.YMaps;
 import com.staliang.ymaps4j.YMapsException;
-import com.staliang.ymaps4j.json.types.Route;
+import com.staliang.ymaps4j.Route;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

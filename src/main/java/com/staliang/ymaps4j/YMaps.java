@@ -1,8 +1,5 @@
 package com.staliang.ymaps4j;
 
-import com.staliang.ymaps4j.json.types.Geolocation;
-import com.staliang.ymaps4j.json.types.Route;
-
 /**
  * Created by Alexandr_Badin on 11.08.2015.
  */

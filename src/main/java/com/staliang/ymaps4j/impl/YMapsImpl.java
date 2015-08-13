@@ -1,12 +1,8 @@
 package com.staliang.ymaps4j.impl;
 
-import com.staliang.ymaps4j.Coordinate;
-import com.staliang.ymaps4j.YMaps;
-import com.staliang.ymaps4j.YMapsException;
+import com.staliang.ymaps4j.*;
 import com.staliang.ymaps4j.json.types.Geocode;
-import com.staliang.ymaps4j.json.types.Geolocation;
 import com.staliang.ymaps4j.json.types.Geometry;
-import com.staliang.ymaps4j.json.types.Route;
 import com.staliang.ymaps4j.util.JSONUtil;
 import org.apache.log4j.Logger;
 
@@ -60,7 +56,7 @@ class YMapsImpl implements YMaps {
             token = rawToken.substring(1, rawToken.length() - 2);
 
             String rawGeolocation = stringMap.get("[\"geolocation\"]");
-            geolocation = JSONUtil.fromJSON(rawGeolocation.substring(0, rawGeolocation.length() - 1), Geolocation.class);
+            geolocation = Adapter.convert(JSONUtil.fromJSON(rawGeolocation.substring(0, rawGeolocation.length() - 1), com.staliang.ymaps4j.json.types.Geolocation.class));
 
             String rawCoordinatesOrder = stringMap.get("[\"coordinatesOrder\"]");
             coordinatesOrder = CoordinatesOrder.getBySysName(rawCoordinatesOrder.substring(1, rawCoordinatesOrder.length() - 2));
@@ -72,19 +68,19 @@ class YMapsImpl implements YMaps {
         }
     }
 
-    public Geolocation geolocation() throws YMapsException {
+    private void checkInit() throws YMapsException {
         if (!initialised) {
             throw new YMapsException("YMaps must be initialised. For initialization use method init().");
         }
+    }
+
+    public Geolocation geolocation() throws YMapsException {
+        checkInit();
 
         return geolocation;
     }
 
     private Geocode requestGeocode(String location, CoordinatesOrder coordinatesOrder) throws YMapsException {
-        if (!initialised) {
-            throw new YMapsException("YMaps must be initialised. For initialization use method init().");
-        }
-
         try {
             String s = URLEncoder.encode(location, "UTF-8");
             URI uri = new URI("https://api-maps.yandex.ru/services/search/v1/?text=" + s + "&format=json&rspn=0&lang=" + locale + "&results=Geocode&token=" + token + "&type=geo&properties=addressdetails&geocoder_sco="+ coordinatesOrder.getSysName()+"&origin=jsapi2Geocoder");
@@ -100,6 +96,8 @@ class YMapsImpl implements YMaps {
     }
 
     public Coordinate geocode(String location) throws YMapsException {
+        checkInit();
+
         Geocode geocode = requestGeocode(location);
         if (geocode.getFeatures().isEmpty()) {
             throw new YMapsException("The location not found");
@@ -109,6 +107,8 @@ class YMapsImpl implements YMaps {
     }
 
     public String geocode(Coordinate coordinate) throws YMapsException {
+        checkInit();
+
         String location = String.format("%s %s", coordinate.getLongitude(), coordinate.getLatitude());
         Geocode geocode = requestGeocode(location, CoordinatesOrder.LONGLAT);
         if (geocode.getFeatures().isEmpty()) {
@@ -118,6 +118,8 @@ class YMapsImpl implements YMaps {
     }
 
     public Route route(String... locations) throws YMapsException {
+        checkInit();
+
         try {
             Coordinate[] coordinates = new Coordinate[locations.length];
             for (int i = 0; i < locations.length; i++) {
@@ -131,16 +133,14 @@ class YMapsImpl implements YMaps {
     }
 
     public Route route(Coordinate... coordinates) throws YMapsException {
-        if (!initialised) {
-            throw new YMapsException("YMaps must be initialised. For initialization use method init().");
-        }
+        checkInit();
 
         try {
             String string = Stream.of(coordinates)
                     .map(point -> String.format("%s%%2C%s", point.getLongitude(), point.getLatitude()))
                     .collect(Collectors.joining("~"));
             String url = String.format("https://api-maps.yandex.ru/services/route/2.0/?rll=%s&lang=%s&token=%s&results=1&rtm=atm", string, locale, token);
-            return JSONUtil.fromJSON(client.get(new URI(url)), Route.class);
+            return Adapter.convert(JSONUtil.fromJSON(client.get(new URI(url)), com.staliang.ymaps4j.json.types.Route.class));
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new YMapsException(e);
