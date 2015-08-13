@@ -3,6 +3,7 @@ package com.staliang.ymaps4j;
 import com.staliang.ymaps4j.beans.Coordinate;
 import com.staliang.ymaps4j.beans.Geolocation;
 import com.staliang.ymaps4j.beans.Route;
+import com.staliang.ymaps4j.exception.YMapsException;
 
 /**
  * Created by Alexandr_Badin on 11.08.2015.

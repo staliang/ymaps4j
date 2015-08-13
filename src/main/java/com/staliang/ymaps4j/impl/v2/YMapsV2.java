@@ -4,6 +4,7 @@ import com.staliang.ymaps4j.*;
 import com.staliang.ymaps4j.beans.Coordinate;
 import com.staliang.ymaps4j.beans.Geolocation;
 import com.staliang.ymaps4j.beans.Route;
+import com.staliang.ymaps4j.exception.YMapsException;
 import com.staliang.ymaps4j.json.types.Geocode;
 import com.staliang.ymaps4j.json.types.Geometry;
 import com.staliang.ymaps4j.util.GZipHttpClient;

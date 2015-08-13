@@ -2,8 +2,8 @@ package com.staliang.ymaps4j.impl;
 
 import com.staliang.ymaps4j.beans.Coordinate;
 import com.staliang.ymaps4j.YMaps;
-import com.staliang.ymaps4j.YMapsException;
 import com.staliang.ymaps4j.beans.Route;
+import com.staliang.ymaps4j.exception.YMapsException;
 import com.staliang.ymaps4j.impl.v2.YMapsV2;
 import org.junit.BeforeClass;
 import org.junit.Test;
