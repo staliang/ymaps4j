@@ -4,7 +4,7 @@ import com.staliang.ymaps4j.YMaps;
 import com.staliang.ymaps4j.YMapsFactory;
 import com.staliang.ymaps4j.beans.Coordinate;
 import com.staliang.ymaps4j.beans.Route;
-import com.staliang.ymaps4j.beans.YMapsVersion;
+import com.staliang.ymaps4j.YMapsVersion;
 import com.staliang.ymaps4j.exception.YMapsException;
 import org.junit.BeforeClass;
 import org.junit.Test;

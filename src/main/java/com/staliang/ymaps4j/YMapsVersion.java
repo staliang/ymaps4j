@@ -1,4 +1,4 @@
-package com.staliang.ymaps4j.beans;
+package com.staliang.ymaps4j;
 
 /**
  * Created by Alexandr_Badin on 13.08.2015

@@ -1,6 +1,5 @@
 package com.staliang.ymaps4j;
 
-import com.staliang.ymaps4j.beans.YMapsVersion;
 import com.staliang.ymaps4j.exception.YMapsException;
 import com.staliang.ymaps4j.impl.v2.YMapsV2;
 
