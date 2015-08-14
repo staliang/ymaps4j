@@ -1,6 +1,7 @@
 package com.staliang.ymaps4j.impl.v2;
 
 import com.staliang.ymaps4j.beans.*;
+import com.staliang.ymaps4j.exception.YMapsException;
 import com.staliang.ymaps4j.json.types.Feature___;
 import com.staliang.ymaps4j.json.types.PathMetaData;
 import com.staliang.ymaps4j.json.types.RouteMetaData;
@@ -14,6 +15,10 @@ import java.util.List;
  */
 public abstract class Adapter {
     public static Route convert(com.staliang.ymaps4j.json.types.Route source) {
+        if (source.getData().getFeatures().isEmpty()) {
+            throw new YMapsException("Can't build route");
+        }
+
         Route route = new Route();
 
         RouteMetaData routeMetaData = source.getData().getFeatures().get(0).getProperties().getRouteMetaData();

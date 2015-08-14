@@ -17,11 +17,10 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Created by Alexandr_Badin on 11.08.2015.
  */
-public class YMapsV2Test {
+public class YMapsV2ImplTest {
 
     public static final String MOSCOW = "Moscow";
     public static final String SAMARA = "Samara";
-
     public static final String MOCK_CITY = "MockCity";
 
     private static YMaps yMaps;
@@ -29,7 +28,6 @@ public class YMapsV2Test {
     @BeforeClass
     public static void before() throws YMapsException {
         yMaps = YMapsFactory.getMaps(YMapsVersion.V2, Locale.ENGLISH);
-        yMaps.init();
     }
 
     @Test

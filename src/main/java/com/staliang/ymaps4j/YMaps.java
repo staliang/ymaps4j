@@ -11,17 +11,12 @@ import com.staliang.ymaps4j.exception.YMapsException;
 public interface YMaps {
 
     /**
-     * Initialize YMaps
-     */
-    void init() throws YMapsException;
-
-    /**
      * Detecting the user's location
      *
      * @return
      * @throws YMapsException
      */
-    Geolocation geolocation() throws YMapsException;
+    Geolocation geolocation();
 
     /**
      * Find an object's name based on its coordinates (reverse geocoding)
@@ -29,7 +24,7 @@ public interface YMaps {
      * @param coordinate
      * @return
      */
-    String geocode(Coordinate coordinate) throws YMapsException;
+    String geocode(Coordinate coordinate);
 
     /**
      * Determine an object's geographical coordinates based on its name (forward geocoding)
@@ -37,7 +32,7 @@ public interface YMaps {
      * @param location
      * @return
      */
-    Coordinate geocode(String location) throws YMapsException;
+    Coordinate geocode(String location);
 
     /**
      * Build driving routes by locations
@@ -46,7 +41,7 @@ public interface YMaps {
      * @return
      * @throws YMapsException
      */
-    Route route(String... locations) throws YMapsException;
+    Route route(String... locations);
 
     /**
      * Build driving routes by coordinates
@@ -55,5 +50,5 @@ public interface YMaps {
      * @return
      * @throws YMapsException
      */
-    Route route(Coordinate... coordinates) throws YMapsException;
+    Route route(Coordinate... coordinates);
 }

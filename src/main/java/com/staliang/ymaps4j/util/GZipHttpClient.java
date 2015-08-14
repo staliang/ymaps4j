@@ -19,7 +19,7 @@ import java.net.URISyntaxException;
  */
 public class GZipHttpClient {
 
-    private static final Logger LOGGER = Logger.getLogger(GZipHttpClient.class);
+    private static final Logger logger = Logger.getLogger(GZipHttpClient.class);
 
     private final HttpClient client;
 
@@ -67,15 +67,15 @@ public class GZipHttpClient {
     }
 
     public String get(String url) throws IOException, URISyntaxException {
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug(url);
         }
 
         HttpResponse resp = client.execute(new HttpGet(new URI(url)));
         String result = new String(IOUtils.toByteArray(resp.getEntity().getContent()), "UTF-8");
 
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug(result);
+        if (logger.isDebugEnabled()) {
+            logger.debug(result);
         }
 
         return result;

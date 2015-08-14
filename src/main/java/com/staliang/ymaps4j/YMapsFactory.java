@@ -1,7 +1,7 @@
 package com.staliang.ymaps4j;
 
 import com.staliang.ymaps4j.exception.YMapsException;
-import com.staliang.ymaps4j.impl.v2.YMapsV2;
+import com.staliang.ymaps4j.impl.v2.YMapsV2Impl;
 
 import java.util.Locale;
 
@@ -17,7 +17,7 @@ public abstract class YMapsFactory {
     public static YMaps getMaps(YMapsVersion mapsVersion, Locale locale) throws YMapsException {
         switch (mapsVersion){
             case V2:
-                return new YMapsV2(locale);
+                return new YMapsV2Impl(locale);
             default:
                 throw new YMapsException("Unknown version of Yandex Maps");
         }
