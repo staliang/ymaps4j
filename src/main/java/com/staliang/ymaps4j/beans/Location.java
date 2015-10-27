@@ -3,7 +3,7 @@ package com.staliang.ymaps4j.beans;
 /**
  * Created by Alexandr_Badin on 27.10.2015
  */
-public class ReverseGeocode {
+public class Location {
 
     private String street;
     private String district;

@@ -1,8 +1,8 @@
 package com.staliang.ymaps4j;
 
 import com.staliang.ymaps4j.beans.Coordinate;
-import com.staliang.ymaps4j.beans.ReverseGeocode;
-import com.staliang.ymaps4j.beans.Geolocation;
+import com.staliang.ymaps4j.beans.Location;
+import com.staliang.ymaps4j.beans.UserLocation;
 import com.staliang.ymaps4j.beans.Route;
 import com.staliang.ymaps4j.exception.YMapsException;
 
@@ -17,15 +17,7 @@ public interface YMaps {
      * @return
      * @throws YMapsException
      */
-    Geolocation geolocation();
-
-    /**
-     * Find an object's name based on its coordinates (reverse geocoding)
-     *
-     * @param coordinate
-     * @return
-     */
-    ReverseGeocode geocode(Coordinate coordinate);
+    UserLocation geolocation();
 
     /**
      * Determine an object's geographical coordinates based on its name (forward geocoding)
@@ -34,6 +26,14 @@ public interface YMaps {
      * @return
      */
     Coordinate geocode(String location);
+
+    /**
+     * Find an object's name based on its coordinates (reverse geocoding)
+     *
+     * @param coordinate
+     * @return
+     */
+    Location geocode(Coordinate coordinate);
 
     /**
      * Build driving routes by locations

@@ -6,7 +6,6 @@ import com.staliang.ymaps4j.beans.Coordinate;
 import com.staliang.ymaps4j.beans.Route;
 import com.staliang.ymaps4j.YMapsVersion;
 import com.staliang.ymaps4j.exception.YMapsException;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.Locale;
@@ -21,8 +20,8 @@ public class YMapsV2ImplTest {
 
     public static final String MOCK_CITY = "MockCity";
 
-    public static final String SAMARA = "Samara";
-    public static final String PETROZAVODSK = "Petrozavodsk";
+    public static final String MOSCOW = "Moscow";
+    public static final String IZHEVSK = "Izhevsk";
 
     private static YMaps yMaps = YMapsFactory.getMaps(YMapsVersion.V2, Locale.ENGLISH);
 
@@ -38,22 +37,22 @@ public class YMapsV2ImplTest {
 
     @Test
     public void testGeocode() throws YMapsException {
-        assertEquals(new Coordinate(34.359688, 61.789036), yMaps.geocode(PETROZAVODSK));
+        assertEquals(new Coordinate(37.620393, 55.75396), yMaps.geocode(MOSCOW));
     }
 
     @Test
     public void testReverseGeocode() throws YMapsException {
-        assertEquals(PETROZAVODSK, yMaps.geocode(new Coordinate(34.36, 61.79)).getLocality());
+        assertEquals(MOSCOW, yMaps.geocode(new Coordinate(37.62, 55.75)).getLocality());
     }
 
     @Test
     public void testRoute() throws YMapsException {
-        Route route = yMaps.route(PETROZAVODSK, SAMARA);
+        Route route = yMaps.route(MOSCOW, IZHEVSK);
         assertNotNull(route);
     }
 
     @Test(expected = YMapsException.class)
     public void testRouteException() throws YMapsException {
-        yMaps.route(MOCK_CITY, PETROZAVODSK);
+        yMaps.route(MOCK_CITY, MOSCOW);
     }
 }

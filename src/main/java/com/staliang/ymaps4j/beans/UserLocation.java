@@ -1,17 +1,15 @@
 package com.staliang.ymaps4j.beans;
 
-import com.staliang.ymaps4j.beans.Coordinate;
-
 /**
  * Created by Alexandr_Badin on 13.08.2015
  */
-public class Geolocation {
+public class UserLocation {
     private final String city;
     private final String region;
     private final String country;
     private final Coordinate coordinate;
 
-    public Geolocation(String city, String region, String country, Coordinate coordinate) {
+    public UserLocation(String city, String region, String country, Coordinate coordinate) {
         this.city = city;
         this.region = region;
         this.country = country;
