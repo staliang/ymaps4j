@@ -14,13 +14,27 @@ public final class LocationConvert {
         for (Feature feature : geocode.getFeatures()) {
             String kind = feature.getProperties().getGeocoderMetaData().getKind();
             switch (kind) {
-                case "house": result.setHouse(feature.getProperties().getName());
-                case "street": result.setStreet(feature.getProperties().getName());
-                case "district": result.setDistrict(feature.getProperties().getName());
-                case "locality" : result.setLocality(feature.getProperties().getName());
-                case "area" : result.setArea(feature.getProperties().getName());
-                case "province" : result.setProvince(feature.getProperties().getName());
-                case "country": result.setCountry(feature.getProperties().getName());
+                case "house":
+                    result.setHouse(feature.getProperties().getName());
+                    break;
+                case "street":
+                    result.setStreet(feature.getProperties().getName());
+                    break;
+                case "district":
+                    result.setDistrict(feature.getProperties().getName());
+                    break;
+                case "locality" :
+                    result.setLocality(feature.getProperties().getName());
+                    break;
+                case "area" :
+                    result.setArea(feature.getProperties().getName());
+                    break;
+                case "province" :
+                    result.setProvince(feature.getProperties().getName());
+                    break;
+                case "country":
+                    result.setCountry(feature.getProperties().getName());
+                    break;
             }
         }
         return result;

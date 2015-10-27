@@ -5,13 +5,21 @@ package com.staliang.ymaps4j.beans;
  */
 public class Location {
 
+    private String house;
     private String street;
     private String district;
     private String locality;
     private String area;
     private String province;
     private String country;
-    private String house;
+
+    public String getHouse() {
+        return house;
+    }
+
+    public void setHouse(String house) {
+        this.house = house;
+    }
 
     public String getStreet() {
         return street;
@@ -59,21 +67,5 @@ public class Location {
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    @Override
-    public String toString() {
-        return "GeocodeResult{" +
-                "street='" + street + '\'' +
-                ", district='" + district + '\'' +
-                ", locality='" + locality + '\'' +
-                ", area='" + area + '\'' +
-                ", province='" + province + '\'' +
-                ", country='" + country + '\'' +
-                '}';
-    }
-
-    public void setHouse(String house) {
-        this.house = house;
     }
 }
