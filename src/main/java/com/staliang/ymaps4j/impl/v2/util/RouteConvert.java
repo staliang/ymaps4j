@@ -1,4 +1,4 @@
-package com.staliang.ymaps4j.impl.v2;
+package com.staliang.ymaps4j.impl.v2.util;
 
 import com.staliang.ymaps4j.beans.*;
 import com.staliang.ymaps4j.exception.YMapsException;
@@ -13,7 +13,8 @@ import java.util.List;
 /**
  * Created by Alexandr_Badin on 13.08.2015
  */
-public abstract class Adapter {
+public abstract class RouteConvert {
+
     public static Route convert(com.staliang.ymaps4j.json.types.Route source) {
         if (source.getData().getFeatures().isEmpty()) {
             throw new YMapsException("Can't build route");
@@ -49,11 +50,5 @@ public abstract class Adapter {
         route.setSegments(segments);
 
         return route;
-    }
-
-    public static Geolocation convert(com.staliang.ymaps4j.json.types.Geolocation source) {
-        Geolocation geolocation = new Geolocation(source.getCity(), source.getRegion(),
-                source.getCountry(), new Coordinate(source.getLongitude(), source.getLatitude()));
-        return geolocation;
     }
 }

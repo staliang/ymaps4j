@@ -2,9 +2,14 @@ package com.staliang.ymaps4j.impl.v2;
 
 import com.staliang.ymaps4j.YMaps;
 import com.staliang.ymaps4j.beans.Coordinate;
+import com.staliang.ymaps4j.beans.ReverseGeocode;
 import com.staliang.ymaps4j.beans.Geolocation;
 import com.staliang.ymaps4j.beans.Route;
 import com.staliang.ymaps4j.exception.YMapsException;
+import com.staliang.ymaps4j.impl.v2.beans.CoordinatesOrder;
+import com.staliang.ymaps4j.impl.v2.util.GeolocationConvert;
+import com.staliang.ymaps4j.impl.v2.util.ReverseGeocodeConvert;
+import com.staliang.ymaps4j.impl.v2.util.RouteConvert;
 import com.staliang.ymaps4j.json.types.Geocode;
 import com.staliang.ymaps4j.util.GZipHttpClient;
 import com.staliang.ymaps4j.util.JsonUtil;
@@ -52,7 +57,7 @@ public class YMapsV2Impl implements YMaps {
             token = rawToken.substring(1, rawToken.length() - 2);
 
             String rawGeolocation = stringMap.get("[\"geolocation\"]");
-            geolocation = Adapter.convert(JsonUtil.fromJson(rawGeolocation.substring(0, rawGeolocation.length() - 1), com.staliang.ymaps4j.json.types.Geolocation.class));
+            geolocation = GeolocationConvert.convert(JsonUtil.fromJson(rawGeolocation.substring(0, rawGeolocation.length() - 1), com.staliang.ymaps4j.json.types.Geolocation.class));
 
             String rawCoordinatesOrder = stringMap.get("[\"coordinatesOrder\"]");
             coordinatesOrder = CoordinatesOrder.getBySysName(rawCoordinatesOrder.substring(1, rawCoordinatesOrder.length() - 2));
@@ -100,10 +105,9 @@ public class YMapsV2Impl implements YMaps {
         return new Coordinate(Double.valueOf(coordinates.get(0).toString()), Double.valueOf(coordinates.get(1).toString()));
     }
 
-    public String geocode(Coordinate coordinate) {
+    public ReverseGeocode geocode(Coordinate coordinate) {
         String location = String.format("%s %s", coordinate.getLongitude(), coordinate.getLatitude());
-        Geocode geocode = getGeocode(location, CoordinatesOrder.LONGLAT);
-        return geocode.getFeatures().get(0).getProperties().getGeocoderMetaData().getText();
+        return ReverseGeocodeConvert.convert(getGeocode(location, CoordinatesOrder.LONGLAT));
     }
 
     public Route route(String... locations) {
@@ -119,7 +123,7 @@ public class YMapsV2Impl implements YMaps {
             StringBuilder stringBuilder = new StringBuilder("https://api-maps.yandex.ru/services/route/2.0/?rll=")
                     .append(string).append("&lang=").append(locale).append("&token=").append(token)
                     .append("&results=1&rtm=atm");
-            return Adapter.convert(JsonUtil.fromJson(client.get(stringBuilder.toString()), com.staliang.ymaps4j.json.types.Route.class));
+            return RouteConvert.convert(JsonUtil.fromJson(client.get(stringBuilder.toString()), com.staliang.ymaps4j.json.types.Route.class));
         } catch (IOException | URISyntaxException e) {
             logger.error(e.getMessage(), e);
             throw new YMapsException(e);

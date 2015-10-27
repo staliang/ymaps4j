@@ -1,6 +1,7 @@
 package com.staliang.ymaps4j;
 
 import com.staliang.ymaps4j.beans.Coordinate;
+import com.staliang.ymaps4j.beans.ReverseGeocode;
 import com.staliang.ymaps4j.beans.Geolocation;
 import com.staliang.ymaps4j.beans.Route;
 import com.staliang.ymaps4j.exception.YMapsException;
@@ -24,7 +25,7 @@ public interface YMaps {
      * @param coordinate
      * @return
      */
-    String geocode(Coordinate coordinate);
+    ReverseGeocode geocode(Coordinate coordinate);
 
     /**
      * Determine an object's geographical coordinates based on its name (forward geocoding)

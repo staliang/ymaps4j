@@ -19,16 +19,12 @@ import static org.junit.Assert.assertNotNull;
  */
 public class YMapsV2ImplTest {
 
-    public static final String MOSCOW = "Moscow";
-    public static final String SAMARA = "Samara";
     public static final String MOCK_CITY = "MockCity";
 
-    private static YMaps yMaps;
+    public static final String SAMARA = "Samara";
+    public static final String PETROZAVODSK = "Petrozavodsk";
 
-    @BeforeClass
-    public static void before() throws YMapsException {
-        yMaps = YMapsFactory.getMaps(YMapsVersion.V2, Locale.ENGLISH);
-    }
+    private static YMaps yMaps = YMapsFactory.getMaps(YMapsVersion.V2, Locale.ENGLISH);
 
     @Test
     public void testGeolocation() throws YMapsException {
@@ -41,25 +37,23 @@ public class YMapsV2ImplTest {
     }
 
     @Test
-    public void testGeocodeForward() throws YMapsException {
-        assertEquals(new Coordinate(37.620393, 55.75396), yMaps.geocode(MOSCOW));
-        assertEquals(new Coordinate(50.101801, 53.195533), yMaps.geocode(SAMARA));
+    public void testGeocode() throws YMapsException {
+        assertEquals(new Coordinate(34.359688, 61.789036), yMaps.geocode(PETROZAVODSK));
     }
 
     @Test
-    public void testGeocodeReverse() throws YMapsException {
-        assertEquals("Russian Federation, Moscow, Red Square", yMaps.geocode(new Coordinate(37.620393, 55.75396)));
-        assertEquals("Russian Federation, Samara, ploshchad Kuybysheva", yMaps.geocode(new Coordinate(50.101801, 53.195533)));
+    public void testReverseGeocode() throws YMapsException {
+        assertEquals(PETROZAVODSK, yMaps.geocode(new Coordinate(34.36, 61.79)).getLocality());
     }
 
     @Test
     public void testRoute() throws YMapsException {
-        Route route = yMaps.route(MOSCOW, SAMARA);
+        Route route = yMaps.route(PETROZAVODSK, SAMARA);
         assertNotNull(route);
     }
 
     @Test(expected = YMapsException.class)
     public void testRouteException() throws YMapsException {
-        yMaps.route(MOCK_CITY, MOSCOW);
+        yMaps.route(MOCK_CITY, PETROZAVODSK);
     }
 }
