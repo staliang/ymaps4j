@@ -13,6 +13,8 @@ import com.staliang.ymaps4j.impl.v2.util.RouteConvert;
 import com.staliang.ymaps4j.json.types.Geocode;
 import com.staliang.ymaps4j.util.GZipHttpClient;
 import com.staliang.ymaps4j.util.JsonUtil;
+import com.staliang.ymaps4j.util.UrlBuilder;
+import com.staliang.ymaps4j.util.UrlToken;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -41,8 +43,9 @@ public class YMapsV2Impl implements YMaps {
 
     private void init() {
         try {
-            String url = String.format("https://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=%s", locale);
-            String getResult = client.get(url);
+            UrlBuilder urlBuilder = new UrlBuilder("https://api-maps.yandex.ru/2.0-stable/")
+                    .add(UrlToken.LANG, locale);
+            String getResult = client.get(urlBuilder.build());
 
             Map<String, String> stringMap = new HashMap<>();
             String[] strings = getResult.split("project_data");
@@ -78,18 +81,23 @@ public class YMapsV2Impl implements YMaps {
         return userLocation;
     }
 
-    private Geocode getGeocode(String location, CoordinatesOrder coordinatesOrder) {
+    private Geocode getGeocode(String location, CoordinatesOrder order) {
         try {
-            StringBuilder stringBuilder = new StringBuilder("https://api-maps.yandex.ru/services/search/v1/?text=")
-                    .append(URLEncoder.encode(location, "UTF-8")).append("&format=json&rspn=0&lang=").append(locale)
-                    .append("&results=Geocode&token=").append(token).append("&type=geo&properties=addressdetails&geocoder_sco=")
-                    .append(coordinatesOrder.getSysName()).append("&origin=jsapi2Geocoder");
-            Geocode geocode = JsonUtil.fromJson(client.get(stringBuilder.toString()), Geocode.class);
+            UrlBuilder urlBuilder = new UrlBuilder("https://api-maps.yandex.ru/services/search/v1/")
+                    .add(UrlToken.TEXT, URLEncoder.encode(location, "UTF-8"))
+                    .add(UrlToken.FORMAT, "json").add(UrlToken.RSPN, 0)
+                    .add(UrlToken.LANG, locale).add(UrlToken.RESULTS, "geocode")
+                    .add(UrlToken.TOKEN, token).add(UrlToken.TYPE, "geo")
+                    .add(UrlToken.PROPERTIES, "addressdetails")
+                    .add(UrlToken.GEOCODER_SCO, order.getSysName())
+                    .add(UrlToken.ORIGIN, "jsapi2Geocoder");
+
+            Geocode geocode = JsonUtil.fromJson(client.get(urlBuilder.build()), Geocode.class);
             if (geocode.getFeatures().isEmpty()) {
                 throw new YMapsException("The location not found");
             }
             return geocode;
-        } catch (IOException |URISyntaxException e) {
+        } catch (IOException | URISyntaxException e) {
             logger.error(e.getMessage(), e);
             throw new YMapsException(e);
         }
@@ -111,7 +119,9 @@ public class YMapsV2Impl implements YMaps {
     }
 
     public Route route(String... locations) {
-        Coordinate[] coordinates = Stream.of(locations).map(location -> geocode(location)).toArray(size -> new Coordinate[size]);
+        Coordinate[] coordinates = Stream.of(locations)
+                .map(location -> geocode(location))
+                .toArray(size -> new Coordinate[size]);
         return route(coordinates);
     }
 
@@ -120,10 +130,11 @@ public class YMapsV2Impl implements YMaps {
             String string = Stream.of(coordinates)
                     .map(point -> String.format("%s%%2C%s", point.getLongitude(), point.getLatitude()))
                     .collect(Collectors.joining("~"));
-            StringBuilder stringBuilder = new StringBuilder("https://api-maps.yandex.ru/services/route/2.0/?rll=")
-                    .append(string).append("&lang=").append(locale).append("&token=").append(token)
-                    .append("&results=1&rtm=atm");
-            return RouteConvert.convert(JsonUtil.fromJson(client.get(stringBuilder.toString()), com.staliang.ymaps4j.json.types.Route.class));
+            UrlBuilder urlBuilder = new UrlBuilder("https://api-maps.yandex.ru/services/route/2.0/")
+                    .add(UrlToken.RLL, string).add(UrlToken.LANG, locale)
+                    .add(UrlToken.TOKEN, token).add(UrlToken.RESULTS, 1)
+                    .add(UrlToken.RTM, "atm");
+            return RouteConvert.convert(JsonUtil.fromJson(client.get(urlBuilder.build()), com.staliang.ymaps4j.json.types.Route.class));
         } catch (IOException | URISyntaxException e) {
             logger.error(e.getMessage(), e);
             throw new YMapsException(e);

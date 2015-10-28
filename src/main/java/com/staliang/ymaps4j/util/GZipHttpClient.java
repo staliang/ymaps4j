@@ -6,7 +6,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.GzipDecompressingEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.HttpContext;
 import org.apache.log4j.Logger;
 
 
@@ -21,49 +20,40 @@ public class GZipHttpClient {
 
     private static final Logger logger = Logger.getLogger(GZipHttpClient.class);
 
+    private static final String ACCEPT_ENCODING = "Accept-Encoding";
+    private static final String GZIP = "gzip";
+
     private final HttpClient client;
 
-    private HttpClient getClient() {
+    private HttpClient initClient() {
         DefaultHttpClient client = new DefaultHttpClient();
-        client.addRequestInterceptor(new HttpRequestInterceptor() {
-
-            public void process(
-                    final HttpRequest request,
-                    final HttpContext context) throws HttpException, IOException {
-                if (!request.containsHeader("Accept-Encoding")) {
-                    request.addHeader("Accept-Encoding", "gzip");
-                }
+        client.addRequestInterceptor((request, context) -> {
+            if (!request.containsHeader(ACCEPT_ENCODING)) {
+                request.addHeader(ACCEPT_ENCODING, GZIP);
             }
-
         });
 
-        client.addResponseInterceptor(new HttpResponseInterceptor() {
-
-            public void process(
-                    final HttpResponse response,
-                    final HttpContext context) throws HttpException, IOException {
-                HttpEntity entity = response.getEntity();
-                if (entity != null) {
-                    Header header = entity.getContentEncoding();
-                    if (header != null) {
-                        HeaderElement[] elements = header.getElements();
-                        for (int i = 0; i < elements.length; i++) {
-                            if (elements[i].getName().equalsIgnoreCase("gzip")) {
-                                response.setEntity(
-                                        new GzipDecompressingEntity(response.getEntity()));
-                                return;
-                            }
+        client.addResponseInterceptor((response, context) -> {
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                Header header = entity.getContentEncoding();
+                if (header != null) {
+                    HeaderElement[] elements = header.getElements();
+                    for (int i = 0; i < elements.length; i++) {
+                        if (elements[i].getName().equalsIgnoreCase(GZIP)) {
+                            response.setEntity(
+                                    new GzipDecompressingEntity(response.getEntity()));
+                            return;
                         }
                     }
                 }
             }
-
         });
         return client;
     }
 
     public GZipHttpClient() {
-        client = getClient();
+        client = initClient();
     }
 
     public String get(String url) throws IOException, URISyntaxException {
